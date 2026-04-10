@@ -1,0 +1,35 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div class="form-group">
+            <label><strong>{{ field.label }}</strong></label><br>
+            {{ field }}
+            
+            {% if field.errors %}
+                <div style="color: red; font-size: 0.9em;">
+                    {% for error in field.errors %}<p>⚠ {{ error }}</p>{% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        {# FAQAT 'password'dan keyin 'password2'ni chiqaramiz #}
+        {% if field.name == "password" %}
+            <div class="form-group">
+                <label><strong>{{ form.password2.label }}</strong></label><br>
+                {{ form.password2 }}
+                
+                {% if form.password2.errors %}
+                    <div style="color: red; font-size: 0.9em;">
+                        {% for error in form.password2.errors %}<p>⚠ {{ error }}</p>{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="btn-container">
+        <button type="submit" class="btn-submit">Sign Up</button>
+        <a href="{% url 'home' %}" class="btn-back">Ortga qaytish</a>
+    </div>
+</form>

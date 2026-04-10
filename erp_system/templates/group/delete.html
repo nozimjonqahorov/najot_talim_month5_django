@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ group.group_name }}ni o'chirish{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🗑️ Guruhni o'chirish</h1>
+</div>
+
+<div class="mx-auto max-w-md">
+    <div class="card" style="border-left: 4px solid #ef4444; text-align: center;">
+        <h3 style="margin-top: 0; color: #ef4444; font-size: 1.25rem;">Haqiqatdan ham o'chirilsinmi?</h3>
+        
+        <p style="color: #6b7280; font-size: 1.125rem; margin: 1.5rem 0;">
+            <strong>"{{ group.group_name }}"</strong> guruh o'chirilishiga aminmisiz?
+        </p>
+        
+        <p style="color: #ef4444; font-size: 0.875rem; background-color: #fee2e2; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+            ⚠️ Bu amalni ortga qaytarib bo'lmaydi. Barcha ma'lumotlar o'chiriladi.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="action-group" style="margin-top: 0;">
+                <button type="submit" class="btn btn-danger">Ha, o'chirilsin</button>
+                <a href="{% url 'group-list' %}" class="btn btn-outline">Yo'q, qolsin</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

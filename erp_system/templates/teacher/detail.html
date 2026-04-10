@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ teacher.name }} {{ teacher.last_name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">👨‍🏫 {{ teacher.name }} {{ teacher.last_name }}</h1>
+    <div class="action-group" style="gap: 0; flex-wrap: nowrap; margin: 0;">
+        <a href="{% url 'teacher-update' teacher.pk %}" class="btn btn-secondary btn-sm" style="flex: 1;">✏️ Tahrirlash</a>
+        <a href="{% url 'teacher-delete' teacher.pk %}" class="btn btn-danger btn-sm" style="flex: 1;">🗑️ O'chirish</a>
+    </div>
+</div>
+
+<div class="card max-w-lg mx-auto">
+    <div class="info-grid">
+        <div class="info-item">
+            <label>Ism</label>
+            <p>{{ teacher.name }}</p>
+        </div>
+        <div class="info-item">
+            <label>Familiya</label>
+            <p>{{ teacher.last_name }}</p>
+        </div>
+        <div class="info-item">
+            <label>Dars beradigan fan</label>
+            <p><span class="badge badge-success">{{ teacher.get_subject_display }}</span></p>
+        </div>
+        <div class="info-item">
+            <label>Ish tajribasi</label>
+            <p>{{ teacher.experience }} yil</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem; border-top: 1px solid #e5e7eb; padding-top: 1.5rem;">
+        <a href="{% url 'teacher-list' %}" class="btn btn-outline btn-sm" style="display: inline-block;">
+            ← O'qituvchilar ro'yxatiga qaytish
+        </a>
+    </div>
+</div>
+{% endblock %}

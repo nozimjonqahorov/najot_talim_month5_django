@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Bosh sahifa{% endblock %}
+
+{% block content %}
+<div class="section">
+    <h1 class="page-title">Xush kelibsiz Najot Ta'lim ERP Tizimiga</h1>
+    
+    <p style="font-size: 1.125rem; color: #6b7280; margin-bottom: 2rem;">
+        Modernizm va samarali boshqaruv tizimi orqali o'qituvchi, o'quvchi va guruhlari boshqarish.
+    </p>
+</div>
+
+<div class="card-grid">
+    <a href="{% url 'student-list' %}" style="text-decoration: none; color: inherit;">
+        <div class="card-item primary">
+            <h3 style="margin-top: 0; font-size: 1.5rem;">👨‍🎓 O'quvchilar</h3>
+            <p style="color: #6b7280; margin-bottom: 1rem;">O'quvchilarni ko'rish va boshqarish</p>
+            <div class="btn btn-primary" style="margin-top: auto;">Ko'rish</div>
+        </div>
+    </a>
+
+    <a href="{% url 'teacher-list' %}" style="text-decoration: none; color: inherit;">
+        <div class="card-item success">
+            <h3 style="margin-top: 0; font-size: 1.5rem;">👨‍🏫 O'qituvchilar</h3>
+            <p style="color: #6b7280; margin-bottom: 1rem;">O'qituvchilarni ko'rish va boshqarish</p>
+            <div class="btn btn-success" style="margin-top: auto;">Ko'rish</div>
+        </div>
+    </a>
+
+    <a href="{% url 'group-list' %}" style="text-decoration: none; color: inherit;">
+        <div class="card-item info">
+            <h3 style="margin-top: 0; font-size: 1.5rem;">📚 Guruhlar</h3>
+            <p style="color: #6b7280; margin-bottom: 1rem;">Guruhlari ko'rish va boshqarish</p>
+            <div class="btn btn-info" style="margin-top: auto;">Ko'rish</div>
+        </div>
+    </a>
+</div>
+
+<div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%); border-left: 4px solid #6366f1;">
+    <h2 style="margin-top: 0;">🚀 Xususiyatlari</h2>
+    <div class="info-grid">
+        <div>
+            <h4 style="color: #6366f1;">Tez va Samarali</h4>
+            <p style="color: #6b7280;">Modernizm texnologiya yordamida tezkor ishlash</p>
+        </div>
+        <div>
+            <h4 style="color: #10b981;">Oson Interfeysasi</h4>
+            <p style="color: #6b7280;">Intuativ va foydalanuvchi-markazsiz dizayn</p>
+        </div>
+        <div>
+            <h4 style="color: #8b5cf6;">Responsive Dizayn</h4>
+            <p style="color: #6b7280;">Istalgan qurilmada juda yaxshi ishlaydi</p>
+        </div>
+        <div>
+            <h4 style="color: #f59e0b;">Ishonchli</h4>
+            <p style="color: #6b7280;">Barcha ma'lumotlar xavfsiz saqlash garoshi</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

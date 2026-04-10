@@ -1,0 +1,77 @@
+﻿{% load static %}
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Mini Shop{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'app.css' %}" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div class="container topbar-inner">
+          <a class="brand" href="{% url 'home' %}" aria-label="Bosh sahifa">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>Mini Shop</span>
+          </a>
+
+          <nav class="nav" aria-label="Asosiy navigatsiya">
+            <a class="pill" href="{% url 'products_list' %}">Mahsulotlar</a>
+            <a class="pill" href="{% url 'about' %}">Biz haqimizda</a>
+          </nav>
+
+          <div class="actions">
+            <form action="{% url 'products_list' %}" method="get" style="display: inline-flex; gap: 10px; align-items: center;">
+              <label class="label" for="top-search" style="position: absolute; left: -9999px;">Qidirish</label>
+              <input
+                id="top-search"
+                type="search"
+                name="q"
+                placeholder="Qidirish..."
+                value="{{ request.GET.q|default:'' }}"
+                style="max-width: 240px;"
+              />
+              <button class="btn btn-ghost" type="submit">Qidirish</button>
+            </form>
+
+            {% if user.is_authenticated %}
+            <a class="btn btn-ghost" href="{% url 'profile' %}">Profil</a>
+              <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button class="btn" type="submit">Chiqish</button>
+              </form>
+            {% else %}
+              <a class="btn btn-ghost" href="{% url 'login' %}">Kirish</a>
+              <a class="btn btn-primary" href="{% url 'signup' %}">Ro'yxatdan o'tish</a>
+            {% endif %}
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="container">
+          {% if messages %}
+            <div class="toast-stack" role="status" aria-live="polite">
+              {% for message in messages %}
+                <div class="toast {% if message.tags == 'error' %}toast-error{% elif message.tags == 'success' %}toast-success{% endif %}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <div class="fade-in">
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="muted">Mini Shop, 2026</div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

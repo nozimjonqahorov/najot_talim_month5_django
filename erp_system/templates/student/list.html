@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}O'quvchilar{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">O'quvchilar</h1>
+    <a href="{% url 'student-create' %}" class="btn btn-success">
+        <span>➕</span> Yangi o'quvchi qo'shish
+    </a>
+</div>
+
+{% if students %}
+<div class="card-grid">
+    {% for student in students %}
+        <div class="card-item primary">
+            <h3 style="margin: 0 0 0.5rem 0; color: #1f2937;">{{ student.name }} {{ student.last_name }}</h3>
+            <p style="color: #6b7280; margin: 0.5rem 0; font-size: 0.875rem;">
+                <strong>Yoshi:</strong> {{ student.age }} & soat
+            </p>
+            <p style="color: #6b7280; margin: 0.5rem 0; font-size: 0.875rem;">
+                <strong>Tel raqam:</strong> {{ student.phone }}
+            </p>
+            <div class="action-group" style="margin-top: 1rem;">
+                <a href="{% url 'student-detail' student.pk %}" class="btn btn-primary btn-sm">Ko'rish</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <h3>📭 Hozircha o'quvchilar qo'shilmagan</h3>
+    <p>Yangi o'quvchi qo'shish uchun yuqoridagi tugmani bosing.</p>
+    <a href="{% url 'student-create' %}" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">
+        Yangi o'quvchi qo'shish
+    </a>
+</div>
+{% endif %}
+{% endblock %}

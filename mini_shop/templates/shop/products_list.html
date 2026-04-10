@@ -1,0 +1,129 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Mahsulotlar Galereyasi{% endblock %}
+
+{% block content %}
+  {% with q=request.GET.q|default:'' cat=request.GET.category|default:'' my=request.GET.my_products|default:'' %}
+    
+    <header class="card card-pad hero" style="margin-bottom: 24px; border-radius: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div>
+          <h1 class="section-title" style="margin: 0;">Marketplace</h1>
+          <p class="muted" style="margin: 5px 0 0;">Eng yaxshi mahsulotlar siz uchun tanlangan</p>
+        </div>
+        
+        <form class="form" method="get" action="{% url 'products_list' %}" style="display: flex; gap: 10px; align-items: center;">
+          <input type="search" name="q" value="{{ q }}" placeholder="Nima qidiramiz?..." style="min-width: 250px; margin: 0; padding: 12px 20px; border-radius: 12px;">
+          <button class="btn btn-primary" type="submit">Topish</button>
+          {% if q or cat or my %}
+            <a class="btn btn-ghost" href="{% url 'products_list' %}" title="Filtrlarni tozalash">✕</a>
+          {% endif %}
+          
+          {% if cat %}<input type="hidden" name="category" value="{{ cat }}">{% endif %}
+          {% if my %}<input type="hidden" name="my_products" value="{{ my }}">{% endif %}
+        </form>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 20px 0;">
+
+      <div style="display: flex; align-items: center; gap: 15px; overflow-x: auto; padding-bottom: 5px;">
+        <span class="label" style="white-space: nowrap;">Bo'limlar:</span>
+        <div class="chips" style="display: flex; flex-wrap: nowrap;">
+          <a class="chip {% if not cat %}chip-on{% endif %}" href="{% url 'products_list' %}{% if q %}?q={{ q|urlencode }}{% endif %}">Hammasi</a>
+          {% for c in categories %}
+            <a class="chip {% if cat == c.id|stringformat:'s' %}chip-on{% endif %}" 
+               href="{% url 'products_list' %}?category={{ c.id }}{% if q %}&q={{ q|urlencode }}{% endif %}{% if my %}&my_products={{ my|urlencode }}{% endif %}">
+              {{ c.name }}
+            </a>
+          {% endfor %}
+        </div>
+        
+        {% if user.is_authenticated %}
+          <div style="margin-left: auto; display: flex; gap: 10px;">
+            <a class="chip {% if my %}chip-on{% endif %}" 
+               href="{% url 'products_list' %}?my_products=true{% if q %}&q={{ q|urlencode }}{% endif %}{% if cat %}&category={{ cat|urlencode }}{% endif %}">
+               📦 Mening mahsulotlarim
+            </a>
+            <a class="btn btn-primary" href="{% url 'product_create' %}" style="padding: 8px 16px; border-radius: 10px;">+ Sotish</a>
+          </div>
+        {% endif %}
+      </div>
+    </header>
+
+    <section class="card card-solid card-pad" style="border-radius: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h2 class="section-title" style="font-size: 28px; margin: 0;">Natijalar</h2>
+        <div class="muted" style="background: rgba(0,0,0,0.04); padding: 5px 15px; border-radius: 20px; font-weight: 600;">
+          {{ products|length }} ta mahsulot topildi
+        </div>
+      </div>
+
+      <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;">
+        {% for product in products %}
+          <article class="product" style="transition: transform 0.3s ease; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <a href="{% url 'product_detail' product.pk %}" style="text-decoration: none; color: inherit;">
+              <div class="product-media" style="height: 220px; position: relative; overflow: hidden;">
+                {% if product.photo %}
+                  <img src="{{ product.photo.url }}" alt="{{ product.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: scale 0.5s;">
+                {% else %}
+                  <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #888;">
+                    Rasm mavjud emas
+                  </div>
+                {% endif %}
+                <span style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #333;">
+                  {{ product.category.name }}
+                </span>
+              </div>
+              
+              <div class="product-body" style="padding: 20px;">
+                <h3 class="product-title" style="font-size: 18px; green-bottom: 8px; color: #16728b;">{{ product.title }}</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; green-bottom: 15px;">
+                  <div class="muted" style="font-size: 13px;">👤 {{ product.seller.username }}</div>
+                  <div style="font-size: 20px; font-weight: 800; color: #2ecc71;">{{ product.price }} <span style="font-size: 14px;">so'm</span></div>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; border-radius: 12px; pointer-events: none;">Ko'rish</button>
+              </div>
+            </a>
+          </article>
+        {% empty %}
+          <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px; background: #f9f9f9; border-radius: 20px; border: 2px dashed #eee;">
+            <div style="font-size: 60px; margin-bottom: 20px;">🔍</div>
+            <h3 style="font-size: 24px; color: #333;">Afsuski, hech narsa topilmadi</h3>
+            <p class="muted" style="max-width: 450px; margin: 10px auto 25px;">
+              Qidiruv so'zini o'zgartirib ko'ring yoki boshqa kategoriyalarni ko'zdan kechiring. Ehtimol, siz qidirayotgan mahsulot hali qo'shilmagandir.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+              <a class="btn btn-primary" href="{% url 'products_list' %}">Barchasini ko'rsatish</a>
+              {% if not user.is_authenticated %}
+                <a class="btn btn-ghost" href="{% url 'login' %}">Akkauntga kirish</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    {% if not user.is_authenticated %}
+      <section class="card card-pad" style="margin-top: 30px; text-align: center; background: linear-gradient(90deg, #2882e8, #27e37b); color: white; border-radius: 20px;">
+        <h3 style="\green: 0; font-size: 22px;">O'z mahsulotingizni sotmoqchimisiz?</h3>
+        <p style="opacity: 0.9; green: 10px 0 20px;">Hamjamiyatimizga qo'shiling va birinchi e'loningizni hoziroq joylashtiring!</p>
+        <a class="btn" href="{% url 'signup' %}" style="background: white; color: #11d7d0; font-weight: bold; padding: 10px 30px; border-radius: 12px;">Ro'yxatdan o'tish</a>
+      </section>
+    {% endif %}
+
+  {% endwith %}
+
+  <style>
+    /* Cardlarga hover effekti */
+    .product:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1) !important;
+    }
+    .product:hover img {
+      scale: 1.05;
+    }
+    .chips::-webkit-scrollbar {
+      display: none; /* Skrolni yashirish */
+    }
+  </style>
+{% endblock %}

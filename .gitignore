@@ -1,0 +1,5 @@
+todo_wishlist/.venv/
+todo_wishlist/__pycache__/
+todo_wishlist/db.sqlite3
+.venv/
+__pycache__/

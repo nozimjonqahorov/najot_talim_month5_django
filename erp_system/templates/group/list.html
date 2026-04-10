@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Guruhlar{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Guruhlar</h1>
+    <a href="{% url 'group-create' %}" class="btn btn-info">
+        <span>➕</span> Yangi guruh qo'shish
+    </a>
+</div>
+
+{% if groups %}
+<div class="card-grid">
+    {% for group in groups %}
+        <div class="card-item info">
+            <h3 style="margin: 0 0 0.5rem 0; color: #1f2937;">{{ group.group_name }}</h3>
+            <p style="color: #6b7280; margin: 0.5rem 0; font-size: 0.875rem;">
+                <strong>Yo'nalishi:</strong> <span class="badge badge-primary">{{ group.subject }}</span>
+            </p>
+            <p style="color: #6b7280; margin: 0.5rem 0; font-size: 0.875rem;">
+                <strong>O'qituvchi:</strong> {{ group.teacher.name }} {{ group.teacher.last_name }}
+            </p>
+            <p style="color: #6b7280; margin: 0.5rem 0; font-size: 0.875rem;">
+                <strong>Boshlanish:</strong> {{ group.start_date|date:"d.m.Y" }}
+            </p>
+            <p style="color: #6b7280; margin: 0.5rem 0; font-size: 0.875rem;">
+                <strong>Tugash:</strong> {{ group.finish_date|date:"d.m.Y" }}
+            </p>
+            <div class="action-group" style="margin-top: 1rem;">
+                <a href="{% url 'group-detail' group.pk %}" class="btn btn-info btn-sm">Ko'rish</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <h3>📭 Hozircha guruhlar qo'shilmagan</h3>
+    <p>Yangi guruh qo'shish uchun yuqoridagi tugmani bosing.</p>
+    <a href="{% url 'group-create' %}" class="btn btn-info" style="margin-top: 1rem; display: inline-block;">
+        Yangi guruh qo'shish
+    </a>
+</div>
+{% endif %}
+{% endblock %}

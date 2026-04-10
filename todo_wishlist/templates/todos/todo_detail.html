@@ -1,0 +1,11 @@
+<h1>Vazifa tafsilotlari</h1>
+<nav>
+    <a href="{% url 'update_todo' todo.pk %}"> Vazifani tahrirlash</a>
+    <a href="{% url 'delete_todo' todo.pk %}"> Vazifani o'chirish</a>
+</nav>
+<p><strong>Sarlavha:</strong> {{ todo.title }}</p>
+<p><strong>Tavsif:</strong> {{ todo.description }}</p>
+<p><strong>Muddat:</strong> {{ todo.deadline }}</p>
+<p><strong>Status:</strong> {{ todo.get_status_display }}</p>
+
+<a href="{% url 'todo_list' %}">Ro'yxatga qaytish</a>

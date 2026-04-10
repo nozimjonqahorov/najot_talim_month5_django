@@ -1,0 +1,8 @@
+<h1> Vazifani o'chirish</h1>
+<p>Haqiqatan ham "{{ todo.title }}" vazifasini o'chirasizmi ?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Ha</button>
+    <a href="{% url 'todo_detail' todo.pk %}">Yo'q, orqaga</a>
+</form>

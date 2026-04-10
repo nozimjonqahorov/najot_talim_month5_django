@@ -1,0 +1,27 @@
+{% extends "pages/base.html" %}
+
+{% block content %}
+<h2><strong>Barcha vazifalar</strong></h2>
+
+<nav style="margin-bottom: 20px;">
+    <a href="{% url 'create_todo' %}" style="margin-right: 20px;">Yangi vazifa qo'shish</a>
+</nav>
+
+<hr>
+
+{% if todos %}
+    {% for todo in todos %}
+        <div style="margin-bottom: 15px;">
+            <a href="{% url 'todo_detail' todo.pk %}">
+                <h3><strong>{{ todo.title }}</strong></h3>
+            </a>
+            <strong>Holati:</strong> {{ todo.get_status_display }}<br>
+            <strong>Deadline:</strong> {{ todo.deadline }}<br>
+        </div>
+        <hr>
+    {% endfor %}
+{% else %}
+    <h1>Hali vazifalar mavjud emas</h1>
+{% endif %}
+
+{% endblock %}

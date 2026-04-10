@@ -1,0 +1,20 @@
+{% extends "pages/base.html" %}
+
+{% block content %}
+    <h1>NextStepga xush kelibsiz</h1>
+    <hr>
+
+    <h3>Dastlabki 6 ta vazifa:</h3>
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        {% for todo in first_six %}
+            <div style="border: 1px solid #ccc; padding: 10px; width: 200px; border-radius: 5px;">
+                <h4>{{ todo.title }}</h4>
+                <p>Muddati: {{ todo.deadline }}</p>
+                <a href="{% url 'todo_detail' todo.pk %}">Batafsil</a>
+            </div>
+        {% empty %}
+            <p>Hozircha vazifalar yo'q.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

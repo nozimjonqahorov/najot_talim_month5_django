@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Bosh sahifa{% endblock %}
+
+{% block content %}
+  <section class="card hero card-pad" aria-label="Bosh sahifa hero">
+    <div class="hero-grid">
+      <div>
+        <h1>Mahsulotlarni tez toping. Yaxshi sotib oling. Oson boshqaring.</h1>
+        <p>
+          Mini Shop foydalanuvchi tajribasiga fokus qilingan kichik marketplace. Qidiruv, kategoriya va "Mening mahsulotlarim"
+          filtri bir joyda.
+        </p>
+        <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="{% url 'products_list' %}">Mahsulotlarni ko'rish</a>
+          <a class="btn btn-ghost" href="{% url 'about' %}">Loyiha haqida</a>
+          {% if user.is_authenticated %}
+            <a class="btn" href="{% url 'product_create' %}">Mahsulot qo'shish</a>
+          {% else %}
+            <a class="btn" href="{% url 'login' %}">Sotishni boshlash</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="stat" aria-label="Qisqa ma'lumotlar">
+        <div class="stat-box">
+          <div class="stat-k">Qidiruv</div>
+          <div class="stat-v">Sarlavha, tavsif va kategoriya bo'yicha.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-k">Kategoriya</div>
+          <div class="stat-v">Bir bosishda filterlash va natijani tozalash.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-k">Nazorat</div>
+          <div class="stat-v">Faqat o'zingizning mahsulotingizni tahrirlaysiz yoki o'chirasiz.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top: 16px;" class="grid grid-3" aria-label="Afzalliklar">
+    <div class="card card-pad">
+      <h2 class="section-title" style="font-size: 22px;">Soddalik</h2>
+      <p class="muted" style="margin: 0;">
+        Har bir sahifa bitta vazifaga xizmat qiladi. Keraksiz shovqin yo'q.
+      </p>
+    </div>
+    <div class="card card-pad">
+      <h2 class="section-title" style="font-size: 22px;">Tezlik</h2>
+      <p class="muted" style="margin: 0;">
+        Eng ko'p ishlatiladigan amallar bir-ikki bosqichda.
+      </p>
+    </div>
+    <div class="card card-pad">
+      <h2 class="section-title" style="font-size: 22px;">Tartib</h2>
+      <p class="muted" style="margin: 0;">
+        Form xatolari, xabarlar va call-to-actionlar bir xil uslubda.
+      </p>
+    </div>
+  </section>
+{% endblock %}

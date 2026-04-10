@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}O'qituvchilar{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">O'qituvchilar</h1>
+    <a href="{% url 'teacher-create' %}" class="btn btn-success">
+        <span>➕</span> Yangi o'qituvchi qo'shish
+    </a>
+</div>
+
+{% if teachers %}
+<div class="card-grid">
+    {% for teacher in teachers %}
+        <div class="card-item success">
+            <h3 style="margin: 0 0 0.5rem 0; color: #1f2937;">{{ teacher.name }} {{ teacher.last_name }}</h3>
+            <p style="color: #6b7280; margin: 0.5rem 0; font-size: 0.875rem;">
+                <strong>Fan:</strong> <span class="badge badge-success">{{ teacher.get_subject_display }}</span>
+            </p>
+            <p style="color: #6b7280; margin: 0.5rem 0; font-size: 0.875rem;">
+                <strong>Tajriba:</strong> {{ teacher.experience }} yil
+            </p>
+            <div class="action-group" style="margin-top: 1rem;">
+                <a href="{% url 'teacher-detail' teacher.pk %}" class="btn btn-success btn-sm">Ko'rish</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <h3>📭 Hozircha o'qituvchilar qo'shilmagan</h3>
+    <p>Yangi o'qituvchi qo'shish uchun yuqoridagi tugmani bosing.</p>
+    <a href="{% url 'teacher-create' %}" class="btn btn-success" style="margin-top: 1rem; display: inline-block;">
+        Yangi o'qituvchi qo'shish
+    </a>
+</div>
+{% endif %}
+{% endblock %}

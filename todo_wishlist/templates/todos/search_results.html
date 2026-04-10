@@ -1,0 +1,18 @@
+<h1>Qidiruv natijalari</h1>
+
+{% if results %}
+    <ul>
+        {% for todo in results %}
+            <li>
+                <a href="{% url 'todo_detail' todo.pk %}"><strong>{{ todo.title }}</strong> </a>
+                <p>{{ todo.description }}</p>
+                <small>Muddat: {{ todo.deadline }}</small>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Hech narsa topilmadi.</p>
+{% endif %}
+
+<a href="{% url 'todo_list' %}">Orqaga qaytish</a>

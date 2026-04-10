@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ group.group_name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📚 {{ group.group_name }}</h1>
+    <div class="action-group" style="gap: 0; flex-wrap: nowrap; margin: 0;">
+        <a href="{% url 'group-update' group.pk %}" class="btn btn-secondary btn-sm" style="flex: 1;">✏️ Tahrirlash</a>
+        <a href="{% url 'group-delete' group.pk %}" class="btn btn-danger btn-sm" style="flex: 1;">🗑️ O'chirish</a>
+    </div>
+</div>
+
+<div class="card max-w-lg mx-auto">
+    <div class="info-grid">
+        <div class="info-item">
+            <label>Guruh nomi</label>
+            <p>{{ group.group_name }}</p>
+        </div>
+        <div class="info-item">
+            <label>Yo'nalishi</label>
+            <p><span class="badge badge-primary">{{ group.subject }}</span></p>
+        </div>
+        <div class="info-item">
+            <label>O'qituvchi</label>
+            <p>{{ group.teacher.name }} {{ group.teacher.last_name }}</p>
+        </div>
+        <div class="info-item">
+            <label>Boshlanish sanasi</label>
+            <p>{{ group.start_date|date:"d.m.Y" }}</p>
+        </div>
+        <div class="info-item">
+            <label>Tugash sanasi</label>
+            <p>{{ group.finish_date|date:"d.m.Y" }}</p>
+        </div>
+        <div class="info-item">
+            <label>Dars davomiyligi</label>
+            <p>{% widthratio group.finish_date group.start_date 1 %} kun</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem; border-top: 1px solid #e5e7eb; padding-top: 1.5rem;">
+        <a href="{% url 'group-list' %}" class="btn btn-outline btn-sm" style="display: inline-block;">
+            ← Guruhlar ro'yxatiga qaytish
+        </a>
+    </div>
+</div>
+{% endblock %}

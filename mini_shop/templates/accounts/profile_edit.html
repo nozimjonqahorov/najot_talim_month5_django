@@ -1,0 +1,55 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Profilni tahrirlash{% endblock %}
+
+{% block content %}
+  <section class="split" aria-label="Profilni tahrirlash">
+    <div class="card card-pad hero">
+      <h1 class="section-title">Profilni tahrirlash</h1>
+      <p class="muted" style="margin: 0; max-width: 62ch;">
+        Ism, familiya, email, bio va suratni yangilang. Surat yuklasangiz, profil kartangizda ko'rinadi.
+      </p>
+      <div class="stat-box" style="margin-top: 16px;">
+        <div class="stat-k">Maslahat</div>
+        <div class="stat-v">Rasm uchun 1:1 yoki 4:3 nisbatdagi suratlar eng chiroyli ko'rinadi.</div>
+      </div>
+    </div>
+
+    <div class="card card-solid card-pad" aria-label="Edit form">
+      <h2 class="section-title" style="font-size: 28px;">Ma'lumotlar</h2>
+      <form method="post" enctype="multipart/form-data" class="form" novalidate>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <ul class="errors">
+            {% for err in form.non_field_errors %}
+              <li>{{ err }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% for field in form %}
+          <div class="field">
+            <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+              <div class="help">{{ field.help_text }}</div>
+            {% endif %}
+            {% if field.errors %}
+              <ul class="errors">
+                {% for err in field.errors %}
+                  <li>{{ err }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;">
+          <button type="submit" class="btn btn-primary">Saqlash</button>
+          <a class="btn btn-ghost" href="{% url 'profile' %}">Bekor qilish</a>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

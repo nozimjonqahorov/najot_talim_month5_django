@@ -1,0 +1,49 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+  <section class="split" aria-label="Profil">
+    <div class="card card-pad hero">
+      <h1 class="section-title">Profil</h1>
+      <p class="muted" style="margin: 0; max-width: 60ch;">
+        Bu yerda shaxsiy ma'lumotlaringiz va tezkor amallar bor.
+      </p>
+
+      <div class="grid" style="margin-top: 16px;">
+        <div class="stat-box">
+          <div class="stat-k">Akkaunt</div>
+          <div class="stat-v">{{ user.username }}{% if user.email %} , {{ user.email }}{% endif %}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-k">Savdo</div>
+          <div class="stat-v">Mahsulotlar bo'limida "Mening mahsulotlarim" filtridan foydalaning.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-solid card-pad" aria-label="Profil kartasi">
+      <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+        <div class="product-media" style="width: 120px; aspect-ratio: 1 / 1; border-radius: 22px; border: 1px solid rgba(11,18,32,0.10);">
+          {% if user.photo %}
+            <img src="{{ user.photo.url }}" alt="{{ user.username }}" />
+          {% else %}
+            <div class="muted" style="font-weight: 900; letter-spacing: -0.02em;">No photo</div>
+          {% endif %}
+        </div>
+
+        <div style="flex: 1 1 240px;">
+          <div style="font-weight: 950; font-size: 22px; letter-spacing: -0.03em;">{{ user.username }}</div>
+          <div class="muted">{{ user.first_name|default:"-" }} {{ user.last_name|default:"" }}</div>
+          <div class="muted" style="margin-top: 8px;">{{ user.bio|default:"Bio kiritilmagan" }}</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <a class="btn btn-primary" href="{% url 'profile_edit' %}">Profilni tahrirlash</a>
+        <a class="btn btn-ghost" href="{% url 'change_password' %}">Parolni yangilash</a>
+        <a class="btn" href="{% url 'products_list' %}?my_products=true">Mening mahsulotlarim</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,39 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Mahsulotni o'chirish{% endblock %}
+
+{% block content %}
+  <section class="split" aria-label="Mahsulotni o'chirish">
+    <div class="card card-pad hero">
+      <h1 class="section-title">O'chirish</h1>
+      <p class="muted" style="margin: 0; max-width: 62ch;">
+        Bu amal qaytarib bo'lmaydi. Agar ishonchingiz komil bo'lmasa, bekor qiling.
+      </p>
+      <div class="stat-box" style="margin-top: 16px;">
+        <div class="stat-k">Mahsulot</div>
+        <div class="stat-v">{{ product.title }}</div>
+      </div>
+      <div style="margin-top: 16px;">
+        <a class="btn btn-ghost" href="{% url 'product_detail' product.pk %}">Orqaga</a>
+      </div>
+    </div>
+
+    <div class="card card-solid card-pad">
+      <h2 class="section-title" style="font-size: 28px;">Tasdiqlash</h2>
+      <p class="muted" style="margin-top: 0;">"{{ product.title }}" mahsulotini o'chirishni xohlaysizmi?</p>
+
+      <form method="post" class="form">
+        {% csrf_token %}
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="submit" class="btn btn-danger">Ha, o'chirilsin</button>
+          <a class="btn btn-ghost" href="{% url 'product_detail' product.pk %}">Yo'q, qolsin</a>
+        </div>
+      </form>
+
+      <div class="stat-box" style="margin-top: 16px; border-color: rgba(239, 68, 68, 0.22);">
+        <div class="stat-k">Diqqat</div>
+        <div class="stat-v">O'chirilgan mahsulotni tiklash mumkin emas.</div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

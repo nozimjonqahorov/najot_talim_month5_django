@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP System | {% block title %}Bosh sahifa{% endblock %}</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="layout-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">📊</div>
+                <h2 class="sidebar-title">ERP System</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="{% url 'home' %}" class="sidebar-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                    <span class="sidebar-icon">🏠</span>
+                    <span class="sidebar-text">Bosh sahifa</span>
+                </a>
+                <a href="{% url 'student-list' %}" class="sidebar-link {% if 'student' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="sidebar-icon">👨‍🎓</span>
+                    <span class="sidebar-text">O'quvchilar</span>
+                </a>
+                <a href="{% url 'teacher-list' %}" class="sidebar-link {% if 'teacher' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="sidebar-icon">👨‍🏫</span>
+                    <span class="sidebar-text">O'qituvchilar</span>
+                </a>
+                <a href="{% url 'group-list' %}" class="sidebar-link {% if 'group' in request.resolver_match.url_name %}active{% endif %}">
+                    <span class="sidebar-icon">📚</span>
+                    <span class="sidebar-text">Guruhlar</span>
+                </a>
+                <a href="{% url 'about' %}" class="sidebar-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                    <span class="sidebar-icon">ℹ️</span>
+                    <span class="sidebar-text">Biz haqimizda</span>
+                </a>
+                <a href="{% url 'signup' %}" class="sidebar-link {% if request.resolver_match.url_name == 'signup' %}active{% endif %}">
+                    <span class="sidebar-icon">ℹ️</span>
+                    <span class="sidebar-text">Ro'yxatdan o'tish</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>© 2026 Najot Ta'lim</p>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header>
+                <nav class="navbar">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="logo">📊 ERP System</div>
+                    <div class="nav-spacer"></div>
+                </nav>
+            </header>
+
+            <main class="container">
+                {% block content %}
+                {% endblock %}
+            </main>
+
+            <footer>
+                <p>&copy; 2026 Najot Ta'lim ERP System. Barcha huquqlar himoyalangan.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar toggle for mobile
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+        }
+        
+        // Close sidebar when a link is clicked
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

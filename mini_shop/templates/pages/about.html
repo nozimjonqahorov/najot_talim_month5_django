@@ -1,0 +1,64 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Biz haqimizda | Mini Shop{% endblock %}
+
+{% block content %}
+  <section class="card card-pad hero" style="border-radius: 28px; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,244,248,0.9) 100%);">
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h1 class="section-title" style="font-size: 42px; letter-spacing: -1px; margin-bottom: 10px;">Xush kelibsiz! 👋</h1>
+        <p class="muted" style="margin: 0 auto; max-width: 65ch; font-size: 18px; line-height: 1.6;">
+          <strong>Mini Shop</strong> — bu shunchaki do'kon emas, balki qulay va ishonchli savdo maydonchasi. 
+          Biz sotuvchilar va xaridorlarni bir nuqtada birlashtirib, savdo jarayonini oson va yoqimli qilishni maqsad qilganmiz.
+        </p>
+    </div>
+
+    <div class="grid grid-2" style="margin-top: 30px; gap: 20px;">
+      <div class="card card-solid card-pad" style="border-radius: 22px; border: none; background: #58c7f3; box-shadow: 0 10px 20px rgba(0,0,0,0.03);">
+        <div style="font-size: 30px; margin-bottom: 10px;">🎯</div>
+        <div class="stat-k" style="font-size: 20px; color: #333;">Bizning maqsad</div>
+        <div class="stat-v" style="font-size: 15px; margin-top: 8px;">
+          Mijozlarimizga eng sara mahsulotlarni qisqa vaqt ichida topish va xarid qilish imkoniyatini berish. Biz sifat va shaffoflik tarafdorimiz.
+        </div>
+      </div>
+
+      <div class="card card-solid card-pad" style="border-radius: 22px; border: none; background: #aff0ba; box-shadow: 0 10px 20px rgba(0,0,0,0.03);">
+        <div style="font-size: 30px; margin-bottom: 10px;">✨</div>
+        <div class="stat-k" style="font-size: 20px; color: #333;">Nega aynan Mini Shop?</div>
+        <div class="stat-v" style="font-size: 15px; margin-top: 8px;">
+          Zamonaviy dizayn, tezkor qidiruv tizimi va foydalanuvchi uchun qulay interfeys. Bizda har bir sotuvchi o'z do'koniga ega!
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: border: none; 20px; background: rgba(31, 200, 138, 0.02); border-radius: 22px;">
+        <h3 style="margin-top: 0; text-align: center; margin-bottom: 20px;">Platformamiz sizga nima beradi?</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: center;">
+            <div>
+                <div style="font-size: 24px background: #aff0ba; box-shadow: 0 10px 20px rgba(0,0,0,0.03);">🚀</div>
+                <p style="font-weight: 700; margin-bottom: 5px;">Tezkorlik</p>
+                <p class="muted" style="font-size: 13px;">Mahsulotlarni bir zumda toping</p>
+            </div>
+            <div>
+                <div style="font-size: 24px;">🛡️</div>
+                <p style="font-weight: 700; margin-bottom: 5px;">Xavfsizlik</p>
+                <p class="muted" style="font-size: 13px;">Ma'lumotlaringiz to'liq himoyalangan</p>
+            </div>
+            <div>
+                <div style="font-size: 24px;">📱</div>
+                <p style="font-weight: 700; margin-bottom: 5px;">Moslashuvchanlik</p>
+                <p class="muted" style="font-size: 13px;">Har qanday qurilmada mukammal ko'rinish</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 35px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+      <a class="btn btn-primary" href="{% url 'products_list' %}" style="padding: 12px 30px; border-radius: 14px;">Xaridni boshlash</a>
+      {% if not user.is_authenticated %}
+        <a class="btn btn-ghost" href="{% url 'signup' %}" style="padding: 12px 30px; border-radius: 14px;">Hamkor bo'lish</a>
+      {% endif %}
+      <a class="btn btn-ghost" href="{% url 'home' %}" style="padding: 12px 30px; border-radius: 14px;">Bosh sahifa</a>
+    </div>
+
+  </section>
+{% endblock %}

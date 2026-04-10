@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ student.name }} {{ student.last_name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">👨‍🎓 {{ student.name }} {{ student.last_name }}</h1>
+    <div class="action-group" style="gap: 0; flex-wrap: nowrap; margin: 0;">
+        <a href="{% url 'student-update' student.pk %}" class="btn btn-secondary btn-sm" style="flex: 1;">✏️ Tahrirlash</a>
+        <a href="{% url 'student-delete' student.pk %}" class="btn btn-danger btn-sm" style="flex: 1;">🗑️ O'chirish</a>
+    </div>
+</div>
+
+<div class="card max-w-lg mx-auto">
+    <div class="info-grid">
+        <div class="info-item">
+            <label>Ism</label>
+            <p>{{ student.name }}</p>
+        </div>
+        <div class="info-item">
+            <label>Familiya</label>
+            <p>{{ student.last_name }}</p>
+        </div>
+        <div class="info-item">
+            <label>Yoshi</label>
+            <p>{{ student.age }} yil</p>
+        </div>
+        <div class="info-item">
+            <label>Tel raqam</label>
+            <p>{{ student.phone }}</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem; border-top: 1px solid #e5e7eb; padding-top: 1.5rem;">
+        <a href="{% url 'student-list' %}" class="btn btn-outline btn-sm" style="display: inline-block;">
+            ← O'quvchilar ro'yxatiga qaytish
+        </a>
+    </div>
+</div>
+{% endblock %}
